@@ -11,6 +11,7 @@ import com.gestaosimples.servico.domain.Cidade;
 import com.gestaosimples.servico.domain.Cliente;
 import com.gestaosimples.servico.domain.Endereco;
 import com.gestaosimples.servico.domain.Estado;
+import com.gestaosimples.servico.domain.ItemPedido;
 import com.gestaosimples.servico.domain.Pagamento;
 import com.gestaosimples.servico.domain.PagamentoComBoleto;
 import com.gestaosimples.servico.domain.PagamentoComCartao;
@@ -23,6 +24,7 @@ import com.gestaosimples.servico.repositories.CidadeRepository;
 import com.gestaosimples.servico.repositories.ClienteRepository;
 import com.gestaosimples.servico.repositories.EnderecoRepository;
 import com.gestaosimples.servico.repositories.EstadoRepository;
+import com.gestaosimples.servico.repositories.ItemPedidoRepository;
 import com.gestaosimples.servico.repositories.PagamentoRepository;
 import com.gestaosimples.servico.repositories.PedidoRepository;
 import com.gestaosimples.servico.repositories.ProdutoRepository;
@@ -57,6 +59,9 @@ public class ServicoApplication implements CommandLineRunner {
 
     @Autowired
     PagamentoRepository pagamentoRepository;
+
+    @Autowired
+    ItemPedidoRepository itemPedidoRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -110,6 +115,17 @@ public class ServicoApplication implements CommandLineRunner {
         cliente1.getPedidos().addAll(Arrays.asList(ped1));
         cliente2.getPedidos().addAll(Arrays.asList(ped2));
 
+        ItemPedido ip1 = new ItemPedido(ped1, p1, 0.0, 1, 2800.0);
+        ItemPedido ip2 = new ItemPedido(ped1, p3, 0.0, 3, 80.0);
+        ItemPedido ip3 = new ItemPedido(ped2, p2, 0.0, 100, 800.0);
+
+        ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+        ped2.getItens().addAll(Arrays.asList(ip3));
+
+        p1.getItens().addAll(Arrays.asList(ip1));
+        p2.getItens().addAll(Arrays.asList(ip3));
+        p2.getItens().addAll(Arrays.asList(ip2));
+
         categoriaRepository.save(Arrays.asList(cat1, cat2));
         produtoRepository.save(Arrays.asList(p1, p2, p3));
         estadoRepository.save(Arrays.asList(est1, est2));
@@ -119,6 +135,7 @@ public class ServicoApplication implements CommandLineRunner {
 
         pedidoRepository.save(Arrays.asList(ped1, ped2));
         pagamentoRepository.save(Arrays.asList(pgto1, pgto2));
+        itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
 
     }
 

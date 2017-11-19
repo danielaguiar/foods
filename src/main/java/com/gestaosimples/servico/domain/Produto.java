@@ -2,7 +2,9 @@ package com.gestaosimples.servico.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity(name = "t_produto")
@@ -35,7 +38,15 @@ public class Produto implements Serializable {
     @JoinTable(name = "t_produto_categoria", joinColumns = @JoinColumn(name = "id_produto"), inverseJoinColumns = @JoinColumn(name = "id_categoria"))
     private List<Categoria> categorias = new ArrayList<Categoria>();
 
+    @OneToMany(mappedBy = "id.produto")
+    private Set<ItemPedido> itens = new HashSet<ItemPedido>();
+
     public Produto() {
+    }
+
+    public Produto(Long id) {
+        super();
+        this.id = id;
     }
 
     public Produto(Long id, String nome, Double preço) {
@@ -49,6 +60,14 @@ public class Produto implements Serializable {
         super();
         this.nome = nome;
         this.preço = preço;
+    }
+
+    public List<Pedido> pedidos() {
+        List<Pedido> lista = new ArrayList<Pedido>();
+        for (ItemPedido item : itens) {
+            lista.add(item.getPedido());
+        }
+        return lista;
     }
 
     public Long getId() {
@@ -81,6 +100,14 @@ public class Produto implements Serializable {
 
     public void setCategorias(List<Categoria> categorias) {
         this.categorias = categorias;
+    }
+
+    public Set<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedido> itens) {
+        this.itens = itens;
     }
 
     @Override

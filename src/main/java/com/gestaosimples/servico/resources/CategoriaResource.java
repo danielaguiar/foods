@@ -2,6 +2,7 @@ package com.gestaosimples.servico.resources;
 
 import java.net.URI;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gestaosimples.servico.domain.Categoria;
+import com.gestaosimples.servico.domain.dto.CategoriaDTO;
 import com.gestaosimples.servico.services.CategoriaService;
 
 @RestController
@@ -44,8 +46,8 @@ public class CategoriaResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@RequestBody Categoria cateogria) {
-        Categoria obj = service.insert(cateogria);
+    public ResponseEntity<Void> insert(@Valid @RequestBody CategoriaDTO cateogria) {
+        Categoria obj = service.insert(service.fromDTO(cateogria));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
@@ -63,4 +65,5 @@ public class CategoriaResource {
         return ResponseEntity.noContent().build();
 
     }
+
 }

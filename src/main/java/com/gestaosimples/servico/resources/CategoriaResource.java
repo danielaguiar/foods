@@ -27,7 +27,7 @@ public class CategoriaResource {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public ResponseEntity<?> findAll() {
+    public ResponseEntity<List<Categoria>> findAll() {
         List<Categoria> categoria = service.findAll();
         return ResponseEntity.ok().body(categoria);
     }

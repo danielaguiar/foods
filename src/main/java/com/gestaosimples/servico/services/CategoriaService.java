@@ -3,6 +3,9 @@ package com.gestaosimples.servico.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 import com.gestaosimples.servico.domain.Categoria;
 import com.gestaosimples.servico.repositories.CategoriaRepository;
@@ -44,5 +47,10 @@ public class CategoriaService {
 
     public List<Categoria> findAll() {
         return repo.findAll();
+    }
+
+    public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderby, String direction) {
+        PageRequest pageRequest = new PageRequest(page, linesPerPage, Direction.valueOf(direction), orderby);
+        return repo.findAll(pageRequest);
     }
 }

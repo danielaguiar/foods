@@ -3,11 +3,13 @@ package com.gestaosimples.servico.resources;
 import java.net.URI;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gestaosimples.servico.domain.Categoria;
@@ -30,6 +32,15 @@ public class CategoriaResource {
     public ResponseEntity<List<Categoria>> findAll() {
         List<Categoria> categoria = service.findAll();
         return ResponseEntity.ok().body(categoria);
+    }
+
+    @RequestMapping(value = "/page", method = RequestMethod.GET)
+    public Page<Categoria> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, //
+        @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, //
+        @RequestParam(value = "orderby", defaultValue = "nome") String orderby, //
+        @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
+
+        return service.findPage(page, linesPerPage, orderby, direction);
     }
 
     @RequestMapping(method = RequestMethod.POST)

@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gestaosimples.servico.domain.enuns.TipoCliente;
 
 @Entity(name = "t_cliente")
@@ -51,6 +52,7 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "t_telefone")
     private Set<String> telefones = new HashSet<String>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<Pedido>();
 

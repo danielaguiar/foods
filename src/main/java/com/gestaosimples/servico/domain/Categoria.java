@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity(name = "t_categoria")
 public class Categoria implements Serializable {
@@ -25,7 +24,6 @@ public class Categoria implements Serializable {
     @Column(name = "ds_categoria", length = 60)
     private String nome;
 
-    @JsonManagedReference
     @ManyToMany(mappedBy = "categorias")
     private List<Produto> produtos = new ArrayList<Produto>();
 

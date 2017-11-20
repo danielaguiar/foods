@@ -15,6 +15,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
 
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -34,6 +35,7 @@ public abstract class Pagamento implements Serializable {
     @Column(name = "cl_pagamento", length = 1)
     private EstadoPagamento tipo;
 
+    @JsonIgnore
     @OneToOne
     @JoinColumn(name = "id_pedido")
     @MapsId

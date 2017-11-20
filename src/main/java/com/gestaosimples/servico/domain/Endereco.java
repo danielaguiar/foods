@@ -8,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity(name = "t_endereco")
 public class Endereco implements Serializable {
@@ -36,7 +36,7 @@ public class Endereco implements Serializable {
     @Column(name = "nr_cep", length = 10)
     private String cep;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "id_cliente")
     private Cliente cliente;

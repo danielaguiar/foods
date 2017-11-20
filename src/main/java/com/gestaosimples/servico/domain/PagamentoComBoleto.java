@@ -3,6 +3,7 @@ package com.gestaosimples.servico.domain;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
 
 @Entity(name = "t_pagamento_boleto")
@@ -11,9 +12,11 @@ public class PagamentoComBoleto extends Pagamento {
     /**  */
     private static final long serialVersionUID = 7161553744410946108L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     @Column(name = "dt_vencimento")
     private Date dataVencimento;
 
+    @JsonFormat(pattern = "dd/MM/yyyy hh:mm")
     @Column(name = "dt_pagamento")
     private Date dataPagamento;
 

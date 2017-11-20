@@ -67,6 +67,9 @@ public class ServicoApplication implements CommandLineRunner {
     public void run(String... args) throws Exception {
         Categoria cat1 = new Categoria("Informatica");
         Categoria cat2 = new Categoria("Escritório");
+        Categoria cat3 = new Categoria("Cama 1");
+        Categoria cat4 = new Categoria("Cama 3");
+        Categoria cat5 = new Categoria("Cama 3");
 
         Produto p1 = new Produto("Computador", 2000.00);
         Produto p2 = new Produto("Impressora", 800.00);
@@ -126,7 +129,7 @@ public class ServicoApplication implements CommandLineRunner {
         p2.getItens().addAll(Arrays.asList(ip3));
         p2.getItens().addAll(Arrays.asList(ip2));
 
-        categoriaRepository.save(Arrays.asList(cat1, cat2));
+        categoriaRepository.save(Arrays.asList(cat1, cat2, cat3, cat4, cat5));
         produtoRepository.save(Arrays.asList(p1, p2, p3));
         estadoRepository.save(Arrays.asList(est1, est2));
         cidadeRepository.save(Arrays.asList(c1, c2, c3));

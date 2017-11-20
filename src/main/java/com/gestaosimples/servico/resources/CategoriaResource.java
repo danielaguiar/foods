@@ -1,6 +1,7 @@
 package com.gestaosimples.servico.resources;
 
 import java.net.URI;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,7 +24,12 @@ public class CategoriaResource {
     public ResponseEntity<?> find(@PathVariable Long id) {
         Categoria categoria = service.find(id);
         return ResponseEntity.ok().body(categoria);
+    }
 
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public ResponseEntity<?> findAll() {
+        List<Categoria> categoria = service.findAll();
+        return ResponseEntity.ok().body(categoria);
     }
 
     @RequestMapping(method = RequestMethod.POST)

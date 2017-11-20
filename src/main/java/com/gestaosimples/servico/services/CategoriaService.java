@@ -1,9 +1,11 @@
 package com.gestaosimples.servico.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.gestaosimples.servico.domain.Categoria;
 import com.gestaosimples.servico.repositories.CategoriaRepository;
+import com.gestaosimples.servico.services.exceptions.DataIntegrityException;
 import com.gestaosimples.servico.services.exceptions.ObjectNotFoundException;
 
 @Service
@@ -29,4 +31,14 @@ public class CategoriaService {
         find(cateogria.getId());
         return repo.save(cateogria);
     }
+
+    public void delete(Long id) {
+        find(id);
+        try {
+            repo.delete(id);
+        } catch (DataIntegrityViolationException e) {
+            throw new DataIntegrityException("Não é possível excluir uma categoria que tem produtos");
+        }
+    }
+
 }

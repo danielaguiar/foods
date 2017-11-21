@@ -39,7 +39,7 @@ public class CategoriaResource {
     @RequestMapping(value = "/page", method = RequestMethod.GET)
     public Page<Categoria> findPage(@RequestParam(value = "page", defaultValue = "0") Integer page, //
         @RequestParam(value = "linesPerPage", defaultValue = "24") Integer linesPerPage, //
-        @RequestParam(value = "orderby", defaultValue = "nome") String orderby, //
+        @RequestParam(value = "orderby", defaultValue = "id") String orderby, //
         @RequestParam(value = "direction", defaultValue = "ASC") String direction) {
 
         return service.findPage(page, linesPerPage, orderby, direction);

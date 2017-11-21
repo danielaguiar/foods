@@ -1,7 +1,9 @@
 package com.gestaosimples.servico.domain.dto;
 
 import java.io.Serializable;
-import com.gestaosimples.servico.domain.enuns.TipoCliente;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class ClienteDTO implements Serializable {
 
@@ -10,32 +12,28 @@ public class ClienteDTO implements Serializable {
 
     private Long id;
 
+    @Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String nome;
 
+    @Email
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String email;
-
-    private String cpfOuCnpj;
-
-    private TipoCliente tipo;
 
     public ClienteDTO() {
     }
 
-    public ClienteDTO(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+    public ClienteDTO(Long id, String nome, String email) {
         super();
         this.id = id;
         this.nome = nome;
         this.email = email;
-        this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo;
     }
 
-    public ClienteDTO(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
+    public ClienteDTO(String nome, String email) {
         super();
         this.nome = nome;
         this.email = email;
-        this.cpfOuCnpj = cpfOuCnpj;
-        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -60,22 +58,6 @@ public class ClienteDTO implements Serializable {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getCpfOuCnpj() {
-        return cpfOuCnpj;
-    }
-
-    public void setCpfOuCnpj(String cpfOuCnpj) {
-        this.cpfOuCnpj = cpfOuCnpj;
-    }
-
-    public TipoCliente getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(TipoCliente tipo) {
-        this.tipo = tipo;
     }
 
     @Override

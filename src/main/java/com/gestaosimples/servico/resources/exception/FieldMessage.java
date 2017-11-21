@@ -3,37 +3,33 @@ package com.gestaosimples.servico.resources.exception;
 import java.io.Serializable;
 
 public class FieldMessage implements Serializable {
+    private static final long serialVersionUID = 1L;
 
-    /**  */
-    private static final long serialVersionUID = 5583814625753233436L;
-
-    private String filed;
-
-    private String msg;
+    private String fieldName;
+    private String message;
 
     public FieldMessage() {
     }
 
-    public FieldMessage(String filed, String msg) {
+    public FieldMessage(String fieldName, String message) {
         super();
-        this.filed = filed;
-        this.msg = msg;
+        this.fieldName = fieldName;
+        this.message = message;
     }
 
-    public String getFiled() {
-        return filed;
+    public String getFieldName() {
+        return fieldName;
     }
 
-    public void setFiled(String filed) {
-        this.filed = filed;
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 
-    public String getMsg() {
-        return msg;
+    public String getMessage() {
+        return message;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public void setMessage(String message) {
+        this.message = message;
     }
-
 }

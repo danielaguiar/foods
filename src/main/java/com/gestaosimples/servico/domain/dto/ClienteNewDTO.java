@@ -4,14 +4,12 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import com.gestaosimples.servico.domain.enuns.TipoCliente;
+import com.gestaosimples.servico.resources.validation.ClienteInsert;
 
-/**
- * DOCUMENT ME!
- *
- */
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 
-    /**  */
     private static final long serialVersionUID = 6356730187701538408L;
 
     private Long id;
@@ -24,20 +22,26 @@ public class ClienteNewDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String email;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String cpfOuCnpj;
 
     private String tipo;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String logradouro;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String numero;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String complemento;
 
     private String bairro;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String cep;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String telefone1;
 
     private String telefone2;
@@ -49,8 +53,8 @@ public class ClienteNewDTO implements Serializable {
     public ClienteNewDTO() {
     }
 
-    public ClienteNewDTO(Long id, String nome, String email, String cpfOuCnpj, String tipo, String logradouro, String numero, String complemento,
-        String bairro, String cep, String telefone1, String telefone2, String telefone3, Long idCidade) {
+    public ClienteNewDTO(Long id, String nome, String email, String cpfOuCnpj, String tipo, String logradouro, String numero, String complemento, String bairro,
+        String cep, String telefone1, String telefone2, String telefone3, Long idCidade) {
         super();
         this.id = id;
         this.nome = nome;
@@ -180,4 +184,11 @@ public class ClienteNewDTO implements Serializable {
         this.idCidade = idCidade;
     }
 
+    public boolean isPessoaFisica() {
+        return tipo != null && tipo.equals(TipoCliente.F.getCodigo());
+    }
+
+    public boolean isPessoaJuridica() {
+        return tipo != null && tipo.equals(TipoCliente.J.getCodigo());
+    }
 }

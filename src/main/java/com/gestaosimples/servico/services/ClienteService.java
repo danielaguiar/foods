@@ -7,8 +7,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import com.gestaosimples.servico.domain.Cidade;
 import com.gestaosimples.servico.domain.Cliente;
+import com.gestaosimples.servico.domain.Endereco;
 import com.gestaosimples.servico.domain.dto.ClienteDTO;
+import com.gestaosimples.servico.domain.dto.ClienteNewDTO;
+import com.gestaosimples.servico.domain.enuns.TipoCliente;
 import com.gestaosimples.servico.repositories.ClienteRepository;
 import com.gestaosimples.servico.services.exceptions.DataIntegrityException;
 import com.gestaosimples.servico.services.exceptions.ObjectNotFoundException;
@@ -63,5 +67,20 @@ public class ClienteService {
 
     public Cliente fromDTO(ClienteDTO dto) {
         return new Cliente(dto.getNome(), dto.getEmail());
+    }
+
+    public Cliente fromDTO(ClienteNewDTO dto) {
+        Cliente cli = new Cliente(dto.getNome(), dto.getEmail(), dto.getCpfOuCnpj(), TipoCliente.toEnum(dto.getTipo()));
+        Endereco end =
+            new Endereco(dto.getLogradouro(), dto.getNumero(), dto.getComplemento(), dto.getBairro(), dto.getCep(), cli, new Cidade(dto.getIdCidade()));
+        cli.getEnderecos().add(end);
+        cli.getTelefones().add(dto.getTelefone1());
+        if (dto.getTelefone2() != null) {
+            cli.getTelefones().add(dto.getTelefone2());
+        }
+        if (dto.getTelefone3() != null) {
+            cli.getTelefones().add(dto.getTelefone3());
+        }
+        return cli;
     }
 }

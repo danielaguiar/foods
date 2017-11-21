@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import com.gestaosimples.servico.domain.Cliente;
 import com.gestaosimples.servico.domain.dto.ClienteDTO;
+import com.gestaosimples.servico.domain.dto.ClienteNewDTO;
 import com.gestaosimples.servico.services.ClienteService;
 
 @RestController
@@ -51,7 +52,7 @@ public class ClienteResource {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteDTO cateogria) {
+    public ResponseEntity<Void> insert(@Valid @RequestBody ClienteNewDTO cateogria) {
         Cliente obj = service.insert(service.fromDTO(cateogria));
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).build();

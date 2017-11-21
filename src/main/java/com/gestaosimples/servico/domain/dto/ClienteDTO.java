@@ -5,7 +5,9 @@ import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import com.gestaosimples.servico.domain.Cliente;
+import com.gestaosimples.servico.resources.validation.ClienteUpdate;
 
+@ClienteUpdate
 public class ClienteDTO implements Serializable {
 
     /**  */

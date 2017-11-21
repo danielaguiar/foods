@@ -42,7 +42,7 @@ public class CategoriaService {
         try {
             repo.delete(id);
         } catch (DataIntegrityViolationException e) {
-            throw new DataIntegrityException("Não é possível excluir uma categoria que tem produtos");
+            throw new DataIntegrityException("Não é possível excluir um cliente que possua pedidos");
         }
     }
 

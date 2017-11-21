@@ -76,6 +76,12 @@ public class Cliente implements Serializable {
         this.tipo = tipo;
     }
 
+    public Cliente(String nome, String email) {
+        super();
+        this.nome = nome;
+        this.email = email;
+    }
+
     public Long getId() {
         return id;
     }

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
+import com.gestaosimples.servico.domain.Cliente;
 
 public class ClienteDTO implements Serializable {
 
@@ -16,11 +17,17 @@ public class ClienteDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String nome;
 
-    @Email
+    @Email(message = "Email inválido")
     @NotEmpty(message = "Preenchimento obrigatório")
     private String email;
 
     public ClienteDTO() {
+    }
+
+    public ClienteDTO(Cliente cliente) {
+        this.id = cliente.getId();
+        this.nome = cliente.getNome();
+        this.email = cliente.getEmail();
     }
 
     public ClienteDTO(Long id, String nome, String email) {

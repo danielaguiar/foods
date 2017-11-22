@@ -2,9 +2,11 @@ package com.gestaosimples.servico.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
 
 @Entity(name = "t_pagamento_cartao")
+@JsonTypeName("pagamentoComCartao")
 public class PagamentoComCartao extends Pagamento {
 
     /**  */

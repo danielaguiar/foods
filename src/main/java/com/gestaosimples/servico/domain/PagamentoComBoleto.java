@@ -4,9 +4,11 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
 
 @Entity(name = "t_pagamento_boleto")
+@JsonTypeName("pagamentoComBoleto")
 public class PagamentoComBoleto extends Pagamento {
 
     /**  */

@@ -16,10 +16,12 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
 
-@Inheritance(strategy = InheritanceType.JOINED)
 @Entity(name = "t_pagamento")
+@Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class Pagamento implements Serializable {
 
     /**  */

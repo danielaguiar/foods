@@ -12,6 +12,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,6 +20,7 @@ import javax.persistence.OneToMany;
 import org.hibernate.annotations.NotFound;
 import org.hibernate.annotations.NotFoundAction;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.gestaosimples.servico.domain.enuns.Perfil;
 import com.gestaosimples.servico.domain.enuns.TipoCliente;
 
 @Entity(name = "t_cliente")
@@ -57,11 +59,17 @@ public class Cliente implements Serializable {
     @CollectionTable(name = "t_telefone")
     private Set<String> telefones = new HashSet<String>();
 
+    @Enumerated(EnumType.STRING)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "t_perfis")
+    private Set<Perfil> perfis = new HashSet<Perfil>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "cliente")
     private List<Pedido> pedidos = new ArrayList<Pedido>();
 
     public Cliente() {
+        addPerfil(Perfil.C);
     }
 
     public Cliente(Long id, String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
@@ -72,6 +80,7 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo;
         this.senha = senha;
+        addPerfil(Perfil.C);
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo) {
@@ -80,6 +89,7 @@ public class Cliente implements Serializable {
         this.email = email;
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo;
+        addPerfil(Perfil.C);
     }
 
     public Cliente(String nome, String email, String cpfOuCnpj, TipoCliente tipo, String senha) {
@@ -89,6 +99,7 @@ public class Cliente implements Serializable {
         this.cpfOuCnpj = cpfOuCnpj;
         this.tipo = tipo;
         this.senha = senha;
+        addPerfil(Perfil.C);
     }
 
     public Cliente(String nome, String email) {
@@ -167,6 +178,16 @@ public class Cliente implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfis() {
+        //        return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+        return perfis;
+    }
+
+    public void addPerfil(Perfil perfil) {
+        //        this.perfis.add(perfil.getCodigo());
+        this.perfis.add(perfil);
     }
 
     @Override

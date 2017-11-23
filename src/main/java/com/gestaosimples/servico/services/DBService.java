@@ -18,6 +18,7 @@ import com.gestaosimples.servico.domain.PagamentoComCartao;
 import com.gestaosimples.servico.domain.Pedido;
 import com.gestaosimples.servico.domain.Produto;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
+import com.gestaosimples.servico.domain.enuns.Perfil;
 import com.gestaosimples.servico.domain.enuns.TipoCliente;
 import com.gestaosimples.servico.repositories.CategoriaRepository;
 import com.gestaosimples.servico.repositories.CidadeRepository;
@@ -117,7 +118,8 @@ public class DBService {
         Cliente cliente2 = new Cliente("Kaio Ferreira Aguiar", "kaioferreiraaguiar@gmail.com", "00000000001", TipoCliente.F, pe.encode("123"));
 
         cliente1.getTelefones().addAll(Arrays.asList("00000000000", "0000000010101"));
-        cliente2.getTelefones().addAll(Arrays.asList("2222222", "333333"));
+        cliente2.getTelefones().addAll(Arrays.asList("00000000000", "00000000000"));
+        cliente1.addPerfil(Perfil.A);
 
         Endereco e1 = new Endereco("rua vlores", "teste", "teste", "adfasd", "72880576", cliente1, c1);
         Endereco e2 = new Endereco("endereco e2", "e2", "e2", "e2", "72880576", cliente1, c2);

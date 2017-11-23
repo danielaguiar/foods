@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import com.gestaosimples.servico.services.DBService;
+import com.gestaosimples.servico.services.mail.SmtpEmailService;
 
 @Configuration
 @Profile("dev")
@@ -25,5 +26,10 @@ public class DevConfig {
         }
         dbService.instanciateTestDatabase();
         return true;
+    }
+
+    @Bean
+    public SmtpEmailService smtpEmailService() throws ParseException {
+        return new SmtpEmailService();
     }
 }

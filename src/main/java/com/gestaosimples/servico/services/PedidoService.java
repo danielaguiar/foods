@@ -11,6 +11,7 @@ import com.gestaosimples.servico.repositories.PagamentoRepository;
 import com.gestaosimples.servico.repositories.PedidoRepository;
 import com.gestaosimples.servico.repositories.ProdutoRepository;
 import com.gestaosimples.servico.services.exceptions.ObjectNotFoundException;
+import com.gestaosimples.servico.services.mail.EmailService;
 
 @Service
 public class PedidoService {
@@ -29,6 +30,9 @@ public class PedidoService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     public Pedido find(Long id) {
         Pedido obj = repo.findOne(id);
@@ -54,7 +58,8 @@ public class PedidoService {
         Pedido p1 = repo.findOne(pedido.getId());
 
         // itemPedidoRepository.save(pedido.getItens());
-        System.out.println(p1);
+        emailService.sendOrderConfirmationEmail(pedido);
+        //System.out.println(p1);
         return repo.save(pedido);
 
     }

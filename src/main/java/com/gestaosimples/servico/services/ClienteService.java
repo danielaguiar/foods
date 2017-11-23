@@ -13,9 +13,12 @@ import com.gestaosimples.servico.domain.Cliente;
 import com.gestaosimples.servico.domain.Endereco;
 import com.gestaosimples.servico.domain.dto.ClienteDTO;
 import com.gestaosimples.servico.domain.dto.ClienteNewDTO;
+import com.gestaosimples.servico.domain.enuns.Perfil;
 import com.gestaosimples.servico.domain.enuns.TipoCliente;
 import com.gestaosimples.servico.repositories.ClienteRepository;
 import com.gestaosimples.servico.repositories.EnderecoRepository;
+import com.gestaosimples.servico.security.UserSS;
+import com.gestaosimples.servico.services.exceptions.AutorizationException;
 import com.gestaosimples.servico.services.exceptions.DataIntegrityException;
 import com.gestaosimples.servico.services.exceptions.ObjectNotFoundException;
 import com.gestaosimples.servico.util.ObjetoUtil;
@@ -25,6 +28,7 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repo;
+
     @Autowired
     private EnderecoRepository enderecoRepository;
 
@@ -32,6 +36,12 @@ public class ClienteService {
     private BCryptPasswordEncoder pe;
 
     public Cliente find(Long id) {
+
+        UserSS user = UserService.authenticated();
+        if (user != null && !user.hasRole(Perfil.A) && !user.getId().equals(id)) {
+            throw new AutorizationException("operação no permitida");
+        }
+
         Cliente obj = repo.findOne(id);
         if (obj == null) {
             throw new ObjectNotFoundException("Objeto não econtrado! id: " + id + ", " + ClienteService.class.getName());

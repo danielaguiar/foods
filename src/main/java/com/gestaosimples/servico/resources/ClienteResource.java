@@ -35,6 +35,7 @@ public class ClienteResource {
 
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<List<ClienteDTO>> findAll() {
         List<Cliente> clientes = service.findAll();

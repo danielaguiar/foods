@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import com.gestaosimples.servico.services.exceptions.AutorizationException;
 import com.gestaosimples.servico.services.exceptions.DataIntegrityException;
 import com.gestaosimples.servico.services.exceptions.ObjectNotFoundException;
 
@@ -27,6 +28,12 @@ public class ResourceExceptionHandler implements Serializable {
     public ResponseEntity<StandardError> dataIntegrityException(DataIntegrityException e) {
         StandardError error = new StandardError(HttpStatus.BAD_REQUEST, e.getMessage(), System.currentTimeMillis());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    @ExceptionHandler(AutorizationException.class)
+    public ResponseEntity<StandardError> autorizationException(AutorizationException e) {
+        StandardError error = new StandardError(HttpStatus.FORBIDDEN, e.getMessage(), System.currentTimeMillis());
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)

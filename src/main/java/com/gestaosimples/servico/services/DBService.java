@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gestaosimples.servico.domain.Categoria;
 import com.gestaosimples.servico.domain.Cidade;
@@ -58,6 +59,9 @@ public class DBService {
     @Autowired
     ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder pe;
+
     public void instanciateTestDatabase() throws ParseException {
         Categoria cat1 = new Categoria(null, "Informática");
         Categoria cat2 = new Categoria(null, "Escritório");
@@ -109,8 +113,8 @@ public class DBService {
         est1.getCidades().addAll(Arrays.asList(c1));
         est2.getCidades().addAll(Arrays.asList(c2, c3));
 
-        Cliente cliente1 = new Cliente("Daniel Aguiar", "bsb.aguiar@gmail.com", "65847580100", TipoCliente.F);
-        Cliente cliente2 = new Cliente("Kaio Ferreira Aguiar", "kaioferreiraaguiar@gmail.com", "00000000001", TipoCliente.F);
+        Cliente cliente1 = new Cliente("Daniel Aguiar", "bsb.aguiar@gmail.com", "65847580100", TipoCliente.F, pe.encode("123"));
+        Cliente cliente2 = new Cliente("Kaio Ferreira Aguiar", "kaioferreiraaguiar@gmail.com", "00000000001", TipoCliente.F, pe.encode("123"));
 
         cliente1.getTelefones().addAll(Arrays.asList("00000000000", "0000000010101"));
         cliente2.getTelefones().addAll(Arrays.asList("2222222", "333333"));
@@ -158,5 +162,4 @@ public class DBService {
         pagamentoRepository.save(Arrays.asList(pgto1, pgto2));
         itemPedidoRepository.save(Arrays.asList(ip1, ip2, ip3));
     }
-
 }

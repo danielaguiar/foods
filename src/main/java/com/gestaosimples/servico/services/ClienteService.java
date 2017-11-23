@@ -6,6 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.gestaosimples.servico.domain.Cidade;
 import com.gestaosimples.servico.domain.Cliente;
@@ -26,6 +27,9 @@ public class ClienteService {
     private ClienteRepository repo;
     @Autowired
     private EnderecoRepository enderecoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder pe;
 
     public Cliente find(Long id) {
         Cliente obj = repo.findOne(id);
@@ -87,6 +91,7 @@ public class ClienteService {
         if (!ObjetoUtil.isVazio(dto.getTelefone3())) {
             cli.getTelefones().add(dto.getTelefone3());
         }
+        cli.setSenha(pe.encode(dto.getSenha()));
         return cli;
     }
 }

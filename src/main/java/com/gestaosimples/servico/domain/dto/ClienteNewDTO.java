@@ -27,6 +27,8 @@ public class ClienteNewDTO implements Serializable {
 
     private String tipo;
 
+    private String senha;
+
     @NotEmpty(message = "Preenchimento obrigatório")
     private String logradouro;
 
@@ -36,6 +38,7 @@ public class ClienteNewDTO implements Serializable {
     @NotEmpty(message = "Preenchimento obrigatório")
     private String complemento;
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     private String bairro;
 
     @NotEmpty(message = "Preenchimento obrigatório")
@@ -53,8 +56,8 @@ public class ClienteNewDTO implements Serializable {
     public ClienteNewDTO() {
     }
 
-    public ClienteNewDTO(Long id, String nome, String email, String cpfOuCnpj, String tipo, String logradouro, String numero, String complemento, String bairro,
-        String cep, String telefone1, String telefone2, String telefone3, Long idCidade) {
+    public ClienteNewDTO(Long id, String nome, String email, String cpfOuCnpj, String tipo, String logradouro, String numero, String complemento,
+        String bairro, String cep, String telefone1, String telefone2, String telefone3, Long idCidade) {
         super();
         this.id = id;
         this.nome = nome;
@@ -191,4 +194,13 @@ public class ClienteNewDTO implements Serializable {
     public boolean isPessoaJuridica() {
         return tipo != null && tipo.equals(TipoCliente.J.getCodigo());
     }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
 }

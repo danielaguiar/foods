@@ -8,7 +8,7 @@ import org.springframework.context.annotation.Profile;
 import com.gestaosimples.servico.services.DBService;
 
 @Configuration
-@Profile("Test")
+@Profile("test")
 public class TestConfig {
 
     @Autowired

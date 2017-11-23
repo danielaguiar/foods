@@ -1,8 +1,11 @@
 package com.gestaosimples.servico.domain;
 
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -15,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.gestaosimples.servico.util.ObjetoUtil;
 
 @Entity(name = "t_pedido")
 public class Pedido implements Serializable {
@@ -71,8 +75,10 @@ public class Pedido implements Serializable {
 
     public double getValorTotal() {
         double soma = 0.0;
-        for (ItemPedido ip : itens) {
-            soma = soma + ip.getSubTotal();
+        if (!ObjetoUtil.isVazio(itens)) {
+            for (ItemPedido ip : itens) {
+                soma = soma + ip.getSubTotal();
+            }
         }
         return soma;
     }
@@ -148,6 +154,30 @@ public class Pedido implements Serializable {
 
     public void setItens(Set<ItemPedido> itens) {
         this.itens = itens;
+    }
+
+    @Override
+    public String toString() {
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido número: ");
+        sb.append(getId());
+        sb.append(", Instante: ");
+        sb.append(sdf.format(getInstante()));
+        sb.append(", Cliente:");
+        sb.append(", Situação do Pedido: ");
+        sb.append(getPagamento().getTipo().getDescricao());
+        sb.append("\nDetalhes:\n");
+        if (!ObjetoUtil.isVazio(itens)) {
+            for (ItemPedido ip : itens) {
+                sb.append(ip.getSubTotal());
+            }
+        }
+        sb.append("Valor total: ");
+        sb.append(nf.format(getValorTotal()));
+
+        return sb.toString();
     }
 
 }

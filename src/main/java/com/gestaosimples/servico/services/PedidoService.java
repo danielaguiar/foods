@@ -3,7 +3,6 @@ package com.gestaosimples.servico.services;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.gestaosimples.servico.domain.ItemPedido;
 import com.gestaosimples.servico.domain.PagamentoComBoleto;
 import com.gestaosimples.servico.domain.Pedido;
 import com.gestaosimples.servico.domain.enuns.EstadoPagamento;
@@ -49,16 +48,13 @@ public class PedidoService {
             PagamentoComBoleto boleto = (PagamentoComBoleto) pedido.getPagamento();
             boletoService.preencherPagamentoComBoleto(boleto, pedido.getInstante());
         }
+        pedido.setItens(null);
         pedido = repo.save(pedido);
         pagamentoRepository.save(pedido.getPagamento());
+        Pedido p1 = repo.findOne(pedido.getId());
 
-        for (ItemPedido ip : pedido.getItens()) {
-            ip.setDesconto(0.0);
-            ip.setProduto(produtoRepository.findOne(ip.getId().getProduto().getId()));
-            ip.setPreco(ip.getProduto().getPreço());
-        }
-        itemPedidoRepository.save(pedido.getItens());
-
+        // itemPedidoRepository.save(pedido.getItens());
+        System.out.println(p1);
         return repo.save(pedido);
 
     }
